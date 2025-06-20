@@ -2,6 +2,8 @@
 
 This repository contains the generation script for the **PolyShape-2D** dataset, a synthetic benchmark designed to rigorously test the properties of rotation-equivariant neural networks, specifically SFCNN from [this paper](https://arxiv.org/abs/1711.07289)
 
+Detailed explanation and chain of tought to understand how the dataset was created can be found here: [BLOG](https://github.com/albertopasi/PolyShape-2D/edit/main/blog.md)
+
 ## About the dataset
 
 **PolyShape-2D** is a synthetic "toy problem" designed to provide a controlled environment for analyzing how SFCNN handle 2D rotation. The core philosophy is to create a clean, unambiguous unit test for rotation equivariance by isolating rotation as the sole significant variable.
