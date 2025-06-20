@@ -1,4 +1,4 @@
-# Rotation-Equivariance benchmark beyond Rotated-MNIST: synthetic shapes for SFCNNs
+# Rotation equivariance benchmark beyond R-MNIST: PolyShape-2D
 
 Reference paper: [Learning Steerable Filters for Rotation Equivariant CNNs](https://arxiv.org/abs/1711.07289) [^sfcnn]
 
@@ -14,7 +14,7 @@ Based on the claims made in [^sfcnn], we can formulate two primary, falsifiable 
 
 These hypotheses provide a clear and structured framework for empirical inquiry. They are specific, measurable, and directly challenge the core assertions of the SFCNN paper, setting the stage for a rigorous and insightful experimental investigation.
 
-## Beyond Rotated-MNIST: why we need a new dataset
+## Beyond Rotated-MNIST: why do we need a new dataset?
 
 Rotated MNIST (R-MNIST) has served as the standard benchmark for this task, and SFCNNs achieved a record-low error on it [^sfcnn]. However, to rigorously test our hypothesis, a more controlled environment is necessary. R-MNIST introduces several confounding variables, factors that are correlated with both the input and output and can obscure the true relationship being tested.
 
@@ -55,7 +55,7 @@ Using asymmetric shapes would force the SFCNN to solve a problem that is concept
 
 Furthermore, many asymmetric candidates (e.g., arrows) introduce reflectional symmetries. Rotation (the group $SO(2)$) and reflection are distinct transformations, belonging to the larger orthogonal group $O(2)$, which includes both rotations and reflections. Architectures equivariant to $SO(2)$ are not guaranteed to be equivariant to reflections. As demonstrated in [^cohen2016group], networks must be explicitly designed for different symmetry groups (e.g., the group p4, containing discrete rotations and translations, versus p4m, which also includes reflections). To ensure we are testing rotation only, we must use shapes that do not introduce this ambiguity.
 
-## Dataset Generation Protocol
+## Dataset generation protocol
 
 To maintain full control and eliminate artifacts, all images in the PolyShape-2D dataset were synthetically generated.
 
@@ -63,9 +63,9 @@ To maintain full control and eliminate artifacts, all images in the PolyShape-2D
 - **Normalization**: The shapes were rendered as solid white on a black background, with anti-aliasing applied. Each shape was centered and scaled to fit 75% of the image canvas, removing translation and scale as variables.
 - **Structure**: The dataset is generated on-the-fly, allowing for precise control over the number and distribution of samples needed to test the hypotheses of generalization (H1) and sample efficiency (H2).
 
-### Experimental Protocol
+### Experimental protocol
 
-### Hypothesis Testing Procedure
+### Hypothesis testing procedure
 
 The experimental protocol is designed to directly test the central hypotheses of rotational generalization (H1) and sample efficiency (H2).
 
