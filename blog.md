@@ -23,7 +23,7 @@ Key confounders in R-MNIST include:
 - **Intra-class variability**: MNIST digits have high variability in writing style, stroke thickness, and slant. A model must simultaneously learn to recognize diverse digit shapes and cope with arbitrary orientations. This mixing of challenges makes it difficult to disentangle errors: did the model fail because it couldn't handle the rotation, or because it struggled with the specific shape of the digit?
 - **Orientation-confounding classes**: The dataset contains classes that are rotations of one another. A '6' rotated 180° is nearly indistinguishable from a '9', yet they have different labels. This violates the fundamental assumption that an object's class identity should be invariant to rotation. A proper test of equivariance requires that a sample's label never changes under the transformation being tested.
 
-In the context of [^sfcnn], the "problem" is the failure of standard CNNs to handle rotation efficiently. For a controlled experiment, we must isolate the primary variable being tested. In this case, that variable is rotation, as it represents the key challenge that SFCNNs are designed to overcome through steerable filters and rotational weight sharing.
+In the context of [^sfcnn], the "problem" is the failure of standard CNNs to handle rotation efficiently. For a controlled experiment, we must isolate the primary variable being tested. In this case, that variable is **rotation**, as it represents the key challenge that SFCNNs are designed to overcome through steerable filters and rotational weight sharing.
 
 A crucial design decision is to hold translation constant. This is because standard CNNs are already translation-equivariant by construction. Including translational variance in the dataset would introduce a solved problem as a confounder. It would make it impossible to disentangle whether performance differences arise from the model's handling of rotation (the novel contribution of SFCNNs) or translation (a property inherent to all CNNs).
 
@@ -43,7 +43,7 @@ For this reason, PolyShape-2D consists of regular geometric shapes. We selected 
 
 - **Classes 0-5**: Equilateral Triangle ($C_3$), Square ($C_4$), Pentagon ($C_5$), Hexagon ($C_6$), Heptagon ($C_7$), and Octagon ($C_8$).
 - **Class 6**: A 5-pointed Star (a non-convex shape with $C_5$ symmetry).
-- **Class 7**: A Circle (representing the continuous rotation group $SO(2)$).
+- **Class 7**: A Circle (representing the continuous rotation group $SO(2)$ ).
 
 This variety allows for a thorough probe of the architecture's capabilities across a spectrum of symmetries, a key aspect of understanding group-equivariant systems [^cohen2016group].
 
@@ -53,7 +53,7 @@ A crucial design decision was the explicit rejection of asymmetric shapes (e.g.,
 
 Using asymmetric shapes would force the SFCNN to solve a problem that is conceptually closer to that addressed by [^sabour2017dynamic], which aim to separate an object's presence from its "instantiation parameters" (e.g., pose). However, forcing this into a simple classification task with a single label contaminates the experiment. It makes it impossible to determine if the model is succeeding due to its geometric rotation equivariance or its ability to memorize the complex, jagged manifold that an asymmetric shape traces through feature space as it rotates.
 
-Furthermore, many asymmetric candidates (e.g., arrows) introduce reflectional symmetries. Rotation (the group $SO(2)$) and reflection are distinct transformations, belonging to the larger orthogonal group $O(2)$, which includes both rotations and reflections. Architectures equivariant to $SO(2)$ are not guaranteed to be equivariant to reflections. As demonstrated in [^cohen2016group], networks must be explicitly designed for different symmetry groups (e.g., the group p4, containing discrete rotations and translations, versus p4m, which also includes reflections). To ensure we are testing rotation only, we must use shapes that do not introduce this ambiguity.
+Furthermore, many asymmetric candidates (e.g., arrows) introduce reflectional symmetries. Rotation (the group $SO(2)$ ) and reflection are distinct transformations, belonging to the larger orthogonal group $O(2)$, which includes both rotations and reflections. Architectures equivariant to $SO(2)$ are not guaranteed to be equivariant to reflections. As demonstrated in [^cohen2016group], networks must be explicitly designed for different symmetry groups (e.g., the group p4, containing discrete rotations and translations, versus p4m, which also includes reflections). To ensure we are testing rotation only, we must use shapes that do not introduce this ambiguity.
 
 ## Dataset generation protocol
 
@@ -62,8 +62,6 @@ To maintain full control and eliminate artifacts, all images in the PolyShape-2D
 - **Rendering**: Shapes were defined as vector polygons and rotated with floating-point precision before being rasterized to a resolution of 64×64 pixels. This avoids the aliasing and degradation artifacts associated with rotating pixel-based images [^dSprites]. The shapes were rendered as solid white on a black background, with anti-aliasing applied (e.g., via 4x supersampling) to ensure smooth edges.
 - **Normalization**: The shapes were rendered as solid white on a black background, with anti-aliasing applied. Each shape was centered and scaled to fit 75% of the image canvas, removing translation and scale as variables.
 - **Structure**: The dataset is generated on-the-fly, allowing for precise control over the number and distribution of samples needed to test the hypotheses of generalization (H1) and sample efficiency (H2).
-
-### Experimental protocol
 
 ### Hypothesis testing procedure
 
@@ -91,7 +89,7 @@ The PolyShape-2D dataset will be generated programmatically to ensure full contr
 
 ### Code availability
 
-The Python script used to generate the PolyShape-2D dataset is available [HERE](https://github.com/albertopasi/PolyShape-2D).
+The Python script used to generate the PolyShape-2D dataset is available [HERE](https://github.com/albertopasi/PolyShape-2D/blob/main/PolyShape-2D.ipynb).
 
 The repository contains the complete generation code and a small, pre-generated version of the dataset for quick visualization and testing. The full dataset splits described in this report can be generated by running the script. The number of images for each split can be easily modified by changing the values in the `NUM_SAMPLES` dictionary variable within the script.
 
